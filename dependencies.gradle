@@ -22,7 +22,7 @@ ext {
     constraintLayoutVersion = '2.1.4'
     supportV4Version = '1.0.0'
     navVersion = '2.1.0'
-    materialVersion = '1.1.0-beta02'
+    materialVersion = '1.9.0'
     analyticsVersion = '17.4.3'
     fragmentKtxVersion = '1.1.0'
     leakCanaryVersion = '2.0'
