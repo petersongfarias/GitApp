@@ -39,7 +39,6 @@ ext {
 
     // Data
     retrofitVersion = '2.9.0'
-    moshiConverterVersion = '2.9.0'
     gsonConverterVersion = '2.9.0'
     loggingInterceptorVersion = '4.2.1'
     roomVersion = '2.5.0'
@@ -89,7 +88,6 @@ ext {
 
     dataDependencies = [
             retrofit          : "com.squareup.retrofit2:retrofit:$retrofitVersion",
-            moshiConverter    : "com.squareup.retrofit2:converter-moshi:$moshiConverterVersion",
             gsonConverter    : "com.squareup.retrofit2:converter-gson:$gsonConverterVersion",
             loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion",
             roomRuntime       : "androidx.room:room-runtime:$roomVersion",
