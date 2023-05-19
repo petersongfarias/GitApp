@@ -33,8 +33,9 @@ android {
 dependencies {
     //Domain
     api dataDependencies.retrofit
-    api dataDependencies.moshiConverter
+    api dataDependencies.gsonConverter
     api dataDependencies.loggingInterceptor
+    api domainDependencies.timber
 
     //Jetpack
     implementation appDependencies.appCompat
@@ -43,6 +44,7 @@ dependencies {
     implementation appDependencies.supportV4
     implementation appDependencies.fragmentKtx
     implementation appDependencies.lifecycleExtensions
+    implementation appDependencies.glide
 
      //Test Libs
     testImplementation testDependencies.junit

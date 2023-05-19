@@ -60,6 +60,11 @@ android {
 
 dependencies {
 
+    implementation project(':commons')
+
+    //data
+    implementation dataDependencies.gsonConverter
+
     //Jetpack
     implementation appDependencies.appCompat
     implementation appDependencies.androidxKtx
