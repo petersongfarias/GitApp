@@ -1,6 +1,5 @@
 package br.com.github.data.source
 
-import br.com.github.data.base.getData
 import br.com.github.data.service.UserRepositoryService
 
 class UserRepositoryRemoteDataSourceImpl(
@@ -8,5 +7,5 @@ class UserRepositoryRemoteDataSourceImpl(
 ) : UserRepositoryRemoteDataSource {
     override suspend fun fetchRepositoryList(
         userName: String
-    ) = userRepositoryService.fetchRepositoryList(userName).getData()
+    ) = userRepositoryService.fetchRepositoryList(userName)
 }

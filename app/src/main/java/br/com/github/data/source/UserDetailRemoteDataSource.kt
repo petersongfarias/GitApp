@@ -1,11 +1,11 @@
 package br.com.github.data.source
 
-import br.com.github.domain.base.Result
-import br.com.github.domain.model.user.UserDetailModel
+import br.com.github.data.model.user.UserDetailsResponse
+import retrofit2.Response
 
 interface UserDetailRemoteDataSource {
 
     suspend fun fetchUserDetail(
         userName: String
-    ): Result<UserDetailModel>
+    ): Response<UserDetailsResponse>
 }
