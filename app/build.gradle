@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-    id "androidx.navigation.safeargs"
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -47,6 +47,7 @@ android {
     }
     buildFeatures {
         compose true
+        viewBinding true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.3.2'
@@ -60,10 +61,11 @@ android {
 
 dependencies {
 
-    implementation project(':commons')
-
-    //data
-    implementation dataDependencies.gsonConverter
+    //Domain
+    api dataDependencies.retrofit
+    api dataDependencies.gsonConverter
+    api dataDependencies.loggingInterceptor
+    api domainDependencies.timber
 
     //Jetpack
     implementation appDependencies.appCompat
@@ -90,7 +92,8 @@ dependencies {
 
     // Koin
     implementation appDependencies.koinAndroid
-    implementation appDependencies.koinAndroidViewModel
+    implementation appDependencies.koinCore
+    implementation appDependencies.koinNavigation
 
     //Test Libs
     testImplementation testDependencies.junit
@@ -112,4 +115,7 @@ dependencies {
     androidTestImplementation testDependencies.espressoIntents
     androidTestImplementation testDependencies.koinTest
     implementation testDependencies.espressoIdlingResource
+
+    // Paging
+    implementation("androidx.paging:paging-runtime:3.1.1")
 }

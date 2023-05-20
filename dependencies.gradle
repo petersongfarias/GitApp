@@ -30,7 +30,6 @@ ext {
     crashlyticsVersion = '17.0.1'
     lifecycleExtensionsVersion = '2.1.0'
     recyclerviewAnimationVersion = '3.0.0'
-    aboutLibsVersion = '8.0.0-rc01'
     stethoVersion = '1.5.1'
     kielVersion = '1.2.1'
 
@@ -76,11 +75,11 @@ ext {
             firebaseCrashlytics   : "com.google.firebase:firebase-crashlytics:$crashlyticsVersion",
             lifecycleExtensions   : "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensionsVersion",
             recyclerviewAnimations: "jp.wasabeef:recyclerview-animators:$recyclerviewAnimationVersion",
-            aboutLibraryCore      : "com.mikepenz:aboutlibraries-core:$aboutLibsVersion",
-            aboutLibraryUi        : "com.mikepenz:aboutlibraries:$aboutLibsVersion",
-            koinAndroid           : "org.koin:koin-android:$koinVersion",
-            koinLifeCycleScope    : "org.koin:koin-android-scope:$koinVersion",
-            koinAndroidViewModel  : "org.koin:koin-androidx-viewmodel:$koinVersion",
+
+            koinAndroid           : "io.insert-koin:koin-android:$koinVersion",
+            koinCore              : "io.insert-koin:koin-core:$koinVersion",
+            koinNavigation        : "io.insert-koin:koin-androidx-navigation:$koinVersion",
+
             stetho                : "com.facebook.stetho:stetho:$stethoVersion",
             kiel                  : "me.ibrahimyilmaz:kiel:$kielVersion",
             glide                 : "com.github.bumptech.glide:glide:$glideVersion"
@@ -116,7 +115,8 @@ ext {
             espressoIdlingResource: "androidx.test.espresso:espresso-idling-resource:$espressoVersion",
             archComponentTest     : "androidx.arch.core:core-testing:$archComponentTestVersion",
             coroutinesTest        : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesCoreVersion",
-            koinTest              : "org.koin:koin-test:$koinVersion",
+            koinTest              : "io.insert-koin:koin-test:$koinVersion",
+            KoinJUnit5            : "io.insert-koin:koin-test-junit5:$koinVersion",
             roomTest              : "androidx.room:room-testing:$roomVersion"
     ]
 }
