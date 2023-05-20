@@ -6,7 +6,7 @@ import br.com.github.data.source.UserDetailRemoteDataSource
 import br.com.github.data.source.UserDetailRemoteDataSourceImpl
 import br.com.github.data.source.UserRepositoryRemoteDataSource
 import br.com.github.data.source.UserRepositoryRemoteDataSourceImpl
-import br.com.github.data.source.UsersPagingRemoteDataSourceImpl
+import br.com.github.data.source.UsersRemoteDataSourcePaging
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,10 +14,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-
-private const val BASE_URL = "https://developer.github.com/v3/"
-const val API_KEY =
-    "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"
 
 private const val TIME_OUT = 30L
 
@@ -35,7 +31,7 @@ val NetworkModule = module {
 
     factory<UserRepositoryRemoteDataSource> { UserRepositoryRemoteDataSourceImpl(get()) }
 
-    factory { UsersPagingRemoteDataSourceImpl(get()) }
+    factory { UsersRemoteDataSourcePaging(get()) }
 }
 
 fun createOkHttpClient(): OkHttpClient {
@@ -67,3 +63,7 @@ fun createRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {
 inline fun <reified T> createService(retrofit: Retrofit): T {
     return retrofit.create(T::class.java)
 }
+
+private const val BASE_URL = "https://developer.github.com/v3/"
+private const val API_KEY =
+    "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"

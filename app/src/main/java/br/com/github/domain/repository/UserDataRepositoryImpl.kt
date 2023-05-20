@@ -1,17 +1,23 @@
 package br.com.github.domain.repository
 
-import br.com.github.data.base.getData
-import br.com.github.data.service.UserDataService
-import br.com.github.domain.base.BaseRepository
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import br.com.github.data.source.UserDetailRemoteDataSource
+import br.com.github.data.source.UsersRemoteDataSourcePaging
 import br.com.github.domain.model.user.UserModel
 
 class UserDataRepositoryImpl(
-    private val userDataService: UserDataService
-) : BaseRepository(), UserDataRepository {
+    private val userDetailRemoteDataSource: UserDetailRemoteDataSource,
+    private val usersRemoteDataSourcePaging: UsersRemoteDataSourcePaging
+) : UserDataRepository {
 
-    override suspend fun fetchUserList(since: Int, perPage: Int): List<UserModel> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun fetchUserList(since: Int, perPage: Int): Pager<Int, UserModel> = Pager(
+        config = PagingConfig(pageSize = 1),
+        pagingSourceFactory = {
+            usersRemoteDataSourcePaging
+        }
+    )
 
-    override suspend fun fetchUserDetail(userName: String) = userDataService.fetchUser(userName).getData()
+    override suspend fun fetchUserDetail(userName: String) =
+        userDetailRemoteDataSource.fetchUserDetail(userName)
 }

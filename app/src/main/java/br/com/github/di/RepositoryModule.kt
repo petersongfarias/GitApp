@@ -7,6 +7,6 @@ import br.com.github.domain.repository.UserReposRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    factory<UserDataRepository> { UserDataRepositoryImpl(get()) }
+    factory<UserDataRepository> { UserDataRepositoryImpl(get(), get()) }
     factory<UserReposRepository> { UserReposRepositoryImpl(get()) }
 }
