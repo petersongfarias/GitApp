@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 
 private const val TIME_OUT = 30L
 
-val NetworkModule = module {
+val networkModule = module {
 
     single { createRetrofit(get(), BASE_URL) }
 

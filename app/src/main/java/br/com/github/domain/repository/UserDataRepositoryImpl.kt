@@ -14,9 +14,12 @@ class UserDataRepositoryImpl(
 ) : UserDataRepository {
 
     override suspend fun fetchUserList(since: Int, perPage: Int): Pager<Int, UserModel> =
-        Pager(config = PagingConfig(pageSize = 1), pagingSourceFactory = {
-            usersRemoteDataSourcePaging
-        })
+        Pager(
+            config = PagingConfig(pageSize = 1),
+            pagingSourceFactory = {
+                usersRemoteDataSourcePaging
+            }
+        )
 
     override suspend fun fetchUserDetail(userName: String) =
         userDetailRemoteDataSource.fetchUserDetail(userName)

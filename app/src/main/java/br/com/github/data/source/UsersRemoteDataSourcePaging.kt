@@ -2,7 +2,6 @@ package br.com.github.data.source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import br.com.github.data.model.user.UserResponse
 import br.com.github.data.service.UserDataService
 import br.com.github.domain.model.user.UserModel
 import timber.log.Timber
@@ -25,7 +24,9 @@ class UsersRemoteDataSourcePaging(
                 nextKey = if (users.isEmpty()) null else users.last().id
             )
         } catch (e: Exception) {
-            Timber.tag(TAG).e("load() - Exception : ${e.message}" )
+            Timber
+                .tag(TAG)
+                .e("load() - Exception : ${e.message}")
             LoadResult.Error(e)
         }
     }
