@@ -1,6 +1,6 @@
 package br.com.github.data.service
 
-import br.com.github.data.model.user.UserDetailsResponse
+import br.com.github.data.model.user.UserDetailResponse
 import br.com.github.data.model.user.UserResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -19,5 +19,5 @@ interface UserDataService {
     suspend fun fetchUser(
         @Path("userName")
         userName: String
-    ): Response<UserDetailsResponse>
+    ): Response<UserDetailResponse>
 }

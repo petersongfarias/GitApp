@@ -5,10 +5,10 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface UserRepositoryService {
+interface UserRepositoriesService {
 
     @GET("users/{userName}/repos")
-    suspend fun fetchRepositoryList(
+    suspend fun fetchRepositories(
         @Path("userName")
         userName: String
     ): Response<List<UserRepositoryResponse>>

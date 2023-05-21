@@ -1,22 +1,21 @@
 package br.com.github.domain.repository
 
+import br.com.github.data.base.logException
 import br.com.github.data.base.mapResult
 import br.com.github.data.source.UserRepositoryRemoteDataSource
-import timber.log.Timber
 
-class UserReposRepositoryImpl(
+class UserRepositoriesRepositoryImpl(
     private val userRepositoryRemoteDataSource: UserRepositoryRemoteDataSource
-) : UserReposRepository {
-    override suspend fun fetchRepositoryList(
+) : UserRepositoriesRepository {
+    override suspend fun fetchRepositories(
         userName: String
-    ) = userRepositoryRemoteDataSource.fetchRepositoryList(userName)
+    ) = userRepositoryRemoteDataSource.fetchRepositories(userName)
+        .logException("$TAG: fetchRepositories")
         .mapResult {
             it.map { repos -> repos.mapTo() }
-        }.onFailure {
-            Timber.tag(TAG + "fetchRepositoryList").e(it)
         }
 
     companion object {
-        const val TAG = "UserReposRepositoryImpl"
+        const val TAG = "UserRepositoriesRepositoryImpl"
     }
 }

@@ -5,7 +5,7 @@ import retrofit2.Response
 
 interface UserRepositoryRemoteDataSource {
 
-    suspend fun fetchRepositoryList(
+    suspend fun fetchRepositories(
         userName: String
     ): Response<List<UserRepositoryResponse>>
 }

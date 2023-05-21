@@ -2,11 +2,11 @@ package br.com.github.domain.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import br.com.github.data.base.logException
 import br.com.github.data.base.mapResult
 import br.com.github.data.source.UserDetailRemoteDataSource
 import br.com.github.data.source.UsersRemoteDataSourcePaging
 import br.com.github.domain.model.user.UserModel
-import timber.log.Timber
 
 class UserDataRepositoryImpl(
     private val userDetailRemoteDataSource: UserDetailRemoteDataSource,
@@ -20,10 +20,9 @@ class UserDataRepositoryImpl(
 
     override suspend fun fetchUserDetail(userName: String) =
         userDetailRemoteDataSource.fetchUserDetail(userName)
+            .logException("$TAG: fetchUserDetail")
             .mapResult { user ->
                 user.mapTo()
-            }.onFailure {
-                Timber.tag(TAG + "fetchUserDetail").e(it)
             }
 
     companion object {

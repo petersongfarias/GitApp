@@ -1,7 +1,7 @@
 package br.com.github.di
 
 import br.com.github.data.service.UserDataService
-import br.com.github.data.service.UserRepositoryService
+import br.com.github.data.service.UserRepositoriesService
 import br.com.github.data.source.UserDetailRemoteDataSource
 import br.com.github.data.source.UserDetailRemoteDataSourceImpl
 import br.com.github.data.source.UserRepositoryRemoteDataSource
@@ -25,7 +25,7 @@ val NetworkModule = module {
 
     single<UserDataService> { createService(get()) }
 
-    single<UserRepositoryService> { createService(get()) }
+    single<UserRepositoriesService> { createService(get()) }
 
     factory<UserDetailRemoteDataSource> { UserDetailRemoteDataSourceImpl(get()) }
 

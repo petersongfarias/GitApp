@@ -1,11 +1,11 @@
 package br.com.github.data.source
 
-import br.com.github.data.service.UserRepositoryService
+import br.com.github.data.service.UserRepositoriesService
 
 class UserRepositoryRemoteDataSourceImpl(
-    private val userRepositoryService: UserRepositoryService
+    private val userRepositoryService: UserRepositoriesService
 ) : UserRepositoryRemoteDataSource {
-    override suspend fun fetchRepositoryList(
+    override suspend fun fetchRepositories(
         userName: String
-    ) = userRepositoryService.fetchRepositoryList(userName)
+    ) = userRepositoryService.fetchRepositories(userName)
 }

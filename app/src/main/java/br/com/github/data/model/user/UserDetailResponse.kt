@@ -4,7 +4,7 @@ import br.com.github.data.base.Mapper
 import br.com.github.domain.model.user.UserDetailModel
 import com.google.gson.annotations.SerializedName
 
-data class UserDetailsResponse(
+data class UserDetailResponse(
     @SerializedName("login")
     val login: String?,
     @SerializedName("id")

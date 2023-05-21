@@ -2,9 +2,8 @@ package br.com.github.domain.repository
 
 import br.com.github.domain.model.repos.UserRepositoryModel
 
-interface UserReposRepository {
-
-    suspend fun fetchRepositoryList(
+interface UserRepositoriesRepository {
+    suspend fun fetchRepositories(
         userName: String
     ): Result<List<UserRepositoryModel>>
 }
