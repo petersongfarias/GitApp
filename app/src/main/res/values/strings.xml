@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Github</string>
+
+    <string name="default_error_title">Ocorreu um erro!</string>
+    <string name="default_error_message">No momento não conseguimos carregar as informações, por favor tente mais tarde!</string>
+    <string name="value_with_starts">%d stars</string>
+    <string name="value_with_watching">%d watching</string>
+    <string name="default_retry">Tentar novamente!</string>
+    <string name="value_with_forks">%d forks</string>
 </resources>
