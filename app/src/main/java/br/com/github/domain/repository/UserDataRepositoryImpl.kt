@@ -13,7 +13,7 @@ class UserDataRepositoryImpl(
     private val usersRemoteDataSourcePaging: UsersRemoteDataSourcePaging
 ) : UserDataRepository {
 
-    override suspend fun fetchUserList(since: Int, perPage: Int): Pager<Int, UserModel> =
+    override suspend fun fetchUsers(): Pager<Int, UserModel> =
         Pager(
             config = PagingConfig(pageSize = 1),
             pagingSourceFactory = {
@@ -23,7 +23,6 @@ class UserDataRepositoryImpl(
 
     override suspend fun fetchUserDetail(userName: String) =
         userDetailRemoteDataSource.fetchUserDetail(userName)
-            .logException("$TAG: fetchUserDetail")
             .mapResult { user ->
                 user.mapTo()
             }

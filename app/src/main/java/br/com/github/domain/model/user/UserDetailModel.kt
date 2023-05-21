@@ -1,17 +1,16 @@
 package br.com.github.domain.model.user
 
-import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class UserDetailModel(
-    val login: String?,
-    val id: Int?,
-    val nodeId: String?,
-    val avatarUrl: String?,
-    val gravatarId: String?,
-    val url: String?,
+    override val login: String?,
+    override val id: Int?,
+    override val nodeId: String?,
+    override val avatarUrl: String?,
+    override val gravatarId: String?,
+    override val url: String?,
     val htmlUrl: String?,
     val followersUrl: String?,
     val followingUrl: String?,
@@ -38,4 +37,4 @@ data class UserDetailModel(
     val following: Int?,
     val createdAt: String?,
     val updatedAt: String?
-) : Parcelable
+) : BaseUser

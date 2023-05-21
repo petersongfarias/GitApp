@@ -49,7 +49,6 @@ fun createOkHttpClient(): OkHttpClient {
         .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
         .readTimeout(TIME_OUT, TimeUnit.SECONDS)
         .addInterceptor(httpLoggingInterceptor)
-        .addInterceptor(authInterceptor)
         .build()
 }
 
@@ -64,6 +63,6 @@ inline fun <reified T> createService(retrofit: Retrofit): T {
     return retrofit.create(T::class.java)
 }
 
-private const val BASE_URL = "https://developer.github.com/v3/"
+private const val BASE_URL = "https://api.github.com/"
 private const val API_KEY =
     "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"

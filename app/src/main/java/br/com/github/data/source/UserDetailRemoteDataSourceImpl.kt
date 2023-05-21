@@ -1,6 +1,5 @@
 package br.com.github.data.source
 
-import br.com.github.data.base.getData
 import br.com.github.data.service.UserDataService
 
 class UserDetailRemoteDataSourceImpl(

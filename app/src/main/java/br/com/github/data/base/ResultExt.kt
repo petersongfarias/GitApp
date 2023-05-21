@@ -39,3 +39,7 @@ fun <T> Response<T>.exceptionOrNull(): Throwable? {
         errorBody()?.let { Throwable(message()) }
     } else null
 }
+
+interface Mapper<T : Any> {
+    fun mapTo(): T
+}

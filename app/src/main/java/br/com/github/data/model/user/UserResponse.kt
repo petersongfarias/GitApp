@@ -4,7 +4,7 @@ import br.com.github.data.base.Mapper
 import br.com.github.domain.model.user.UserModel
 import com.google.gson.annotations.SerializedName
 
-data class UserResponse(
+class UserResponse(
     @SerializedName("login")
     val login: String?,
     @SerializedName("id")
@@ -16,33 +16,7 @@ data class UserResponse(
     @SerializedName("gravatar_id")
     val gravatarId: String?,
     @SerializedName("url")
-    val url: String?,
-    @SerializedName("html_url")
-    val htmlUrl: String?,
-    @SerializedName("followers_url")
-    val followersUrl: String?,
-    @SerializedName("following_url")
-    val followingUrl: String?,
-    @SerializedName("gists_url")
-    val gistsUrl: String?,
-    @SerializedName("starred_url")
-    val starredUrl: String?,
-    @SerializedName("subscriptions_url")
-    val subscriptionsUrl: String?,
-    @SerializedName("organizations_url")
-    val organizationsUrl: String?,
-    @SerializedName("repos_url")
-    val reposUrl: String?,
-    @SerializedName("events_url")
-    val eventsUrl: String?,
-    @SerializedName("received_events_url")
-    val receivedEventsUrl: String?,
-    @SerializedName("type")
-    val type: String?,
-    @SerializedName("site_admin")
-    val siteAdmin: Boolean?,
-    @SerializedName("score")
-    val score: Double?
+    val url: String?
 ) : Mapper<UserModel> {
     override fun mapTo() = UserModel(
         login = login,
@@ -50,19 +24,6 @@ data class UserResponse(
         nodeId = nodeId,
         avatarUrl = avatarUrl,
         gravatarId = gravatarId,
-        url = url,
-        htmlUrl = htmlUrl,
-        followersUrl = followersUrl,
-        followingUrl = followingUrl,
-        gistsUrl = gistsUrl,
-        starredUrl = starredUrl,
-        subscriptionsUrl = subscriptionsUrl,
-        organizationsUrl = organizationsUrl,
-        reposUrl = reposUrl,
-        eventsUrl = eventsUrl,
-        receivedEventsUrl = receivedEventsUrl,
-        type = type,
-        siteAdmin = siteAdmin,
-        score = score
+        url = url
     )
 }

@@ -16,7 +16,7 @@ ext {
     versionCode = versionCodeMajor * 10000 + versionCodeMinor * 100 + versionCodePatch
     versionName = "$versionCodeMajor.$versionCodeMinor.$versionCodePatch"
 
-    // Dependencies Version - Presentation
+    // App
     appcompatVersion = '1.6.1'
     androidxCoreKtxVersion = '1.8.0'
     constraintLayoutVersion = '2.1.4'
@@ -30,6 +30,8 @@ ext {
     crashlyticsVersion = '17.0.1'
     lifecycleExtensionsVersion = '2.1.0'
     stethoVersion = '1.5.1'
+    shimmerVersion = '0.5.0'
+    lottieVersion = '4.2.0'
 
     // glide
     glideVersion = '4.15.1'
@@ -59,8 +61,6 @@ ext {
     rulesVersion = '1.2.0'
     archComponentTestVersion = '2.1.0'
 
-
-    // App/Presentation Layer
     appDependencies = [
             appCompat             : "androidx.appcompat:appcompat:$appcompatVersion",
             androidxKtx           : "androidx.core:core-ktx:$androidxCoreKtxVersion",
@@ -76,7 +76,9 @@ ext {
             koinCore              : "io.insert-koin:koin-core:$koinVersion",
             koinNavigation        : "io.insert-koin:koin-androidx-navigation:$koinVersion",
             stetho                : "com.facebook.stetho:stetho:$stethoVersion",
-            glide                 : "com.github.bumptech.glide:glide:$glideVersion"
+            glide                 : "com.github.bumptech.glide:glide:$glideVersion",
+            lottie                : "com.airbnb.android:lottie:$lottieVersion",
+            shimmer               : "com.facebook.shimmer:shimmer:$shimmerVersion"
     ]
 
     dataDependencies = [
