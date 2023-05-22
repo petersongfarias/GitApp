@@ -45,7 +45,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tvName"
         tools:text="petersongfarias" />
 
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvFollowers"
         android:textSize="16sp"
@@ -53,7 +52,6 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/tvFollowersLabel"
         app:layout_constraintEnd_toStartOf="@id/tv_following"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_following"
@@ -67,7 +65,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_following_label"
         app:layout_constraintEnd_toStartOf="@id/tvRepository"
         app:layout_constraintStart_toEndOf="@id/tvFollowers"
         app:layout_constraintTop_toBottomOf="@id/tvUsername"
@@ -80,48 +77,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/tv_repository_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_following"
         app:layout_constraintTop_toTopOf="@id/tv_following"
         tools:text="Repository" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvFollowersLabel"
-        android:textSize="16sp"
-        android:textColor="@color/grey_medium"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/followers"
-        app:layout_constraintEnd_toEndOf="@id/tvFollowers"
-        app:layout_constraintStart_toStartOf="@id/tvFollowers"
-        app:layout_constraintTop_toBottomOf="@id/tvFollowers" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_following_label"
-        android:textSize="16sp"
-        android:textColor="@color/grey_medium"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/following"
-        app:layout_constraintEnd_toEndOf="@id/tv_following"
-        app:layout_constraintStart_toStartOf="@id/tv_following"
-        app:layout_constraintTop_toBottomOf="@id/tv_following" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_repository_label"
-        android:textSize="16sp"
-        android:textColor="@color/grey_medium"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/repository"
-        app:layout_constraintEnd_toEndOf="@id/tvRepository"
-        app:layout_constraintStart_toStartOf="@id/tvRepository"
-        app:layout_constraintTop_toBottomOf="@id/tvRepository" />
-
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_location"
@@ -134,10 +93,10 @@
         android:layout_marginTop="16dp"
         android:drawablePadding="8dp"
         android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tv_following"
         app:layout_constraintBottom_toTopOf="@id/tv_company"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_following_label"
         tools:text="Brasil" />
 
     <androidx.appcompat.widget.AppCompatTextView
