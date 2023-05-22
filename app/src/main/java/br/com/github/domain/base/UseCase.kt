@@ -1,11 +1,9 @@
 package br.com.github.domain.base
 
-import kotlinx.coroutines.flow.Flow
-
 interface UseCase<T : Any, R : Any> {
-    suspend operator fun invoke(param: T): Flow<ResultState<R>>
+    suspend operator fun invoke(param: T): Result<R>
 }
 
 interface UseCasePager<R : Any> {
-    suspend operator fun invoke(): R
+    suspend operator fun invoke(): Result<R>
 }

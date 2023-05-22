@@ -1,78 +1,70 @@
 package br.com.github.ui.home
 
 import androidx.lifecycle.*
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import br.com.github.domain.base.ResultState
+import br.com.github.domain.model.user.UserDetailModel
+import br.com.github.domain.model.user.UserModel
 import br.com.github.domain.useCase.UserDetailUseCase
 import br.com.github.domain.useCase.UsersUseCase
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
+import br.com.github.ui.common.LiveDataSingleEvent
+import br.com.github.ui.common.toLiveData
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val usersUseCase: UsersUseCase,
     private val userDetailUseCase: UserDetailUseCase
-) : ViewModel() {
+) : ViewModel(), DefaultLifecycleObserver {
 
-    private val _errorSharedFlow = MutableSharedFlow<String>()
-    val errorSharedFlow = _errorSharedFlow.asSharedFlow()
+    private val _userListSuccessEvent = LiveDataSingleEvent<PagingData<UserModel>>()
+    val userListSuccessEvent = _userListSuccessEvent.toLiveData()
 
-    private val _loadingStateFlow = MutableStateFlow(false)
-    val loadingStateFlow = _loadingStateFlow.asStateFlow()
+    private val _userDetailSuccessEvent = LiveDataSingleEvent<UserDetailModel>()
+    val userDetailSuccessEvent = _userDetailSuccessEvent.toLiveData()
 
-    private val _homeStateFlow: MutableStateFlow<HomeState> = MutableStateFlow(HomeState.Nothing)
-    val homeStateFlow = _homeStateFlow.asStateFlow()
+    private val _userListFailureEvent = LiveDataSingleEvent<String>()
+    val userListFailureEvent = _userListFailureEvent.toLiveData()
 
-    private var dispatchRetry: (() -> Unit)? = null
+    private val _userDetailFailureEvent = LiveDataSingleEvent<String>()
+    val userDetailFailureEvent = _userDetailFailureEvent.toLiveData()
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        fetchUsers()
+    }
 
     fun fetchUsers() {
-        dispatchRetry = { fetchUsers() }
-
-        loadingStateChange(true)
-
-        _homeStateFlow.value = HomeState.Nothing
-
         viewModelScope.launch {
-            val userList = usersUseCase.invoke().flow.cachedIn(viewModelScope)
-            _homeStateFlow.value = HomeState.ShowUserList(userList.first())
+            _isLoading.value = true
+            usersUseCase.invoke()
+                .onSuccess {
+                    _isLoading.value = false
+                    it.flow.cachedIn(viewModelScope).collect {
+                        _userListSuccessEvent.value = it
+                    }
+                }
+                .onFailure {
+                    _userListFailureEvent.value = it.message
+                    _isLoading.value = false
+                }
         }
     }
 
     fun fetchUser(searchQuery: String) {
-        dispatchRetry = { fetchUser(searchQuery) }
-
-        loadingStateChange(true)
-
-        _homeStateFlow.value = HomeState.Nothing
-
         viewModelScope.launch {
-            userDetailUseCase.invoke(searchQuery).collect {
-                when (it) {
-                    is ResultState.Success -> {
-                        it.data?.let {
-                            _homeStateFlow.emit(HomeState.ShowUser(it))
-                        } ?: run {
-                            _homeStateFlow.emit(HomeState.Nothing)
-                        }
-                        loadingStateChange(false)
-                    }
-
-                    is ResultState.Error -> {
-                        _errorSharedFlow.emit(it.message.orEmpty())
-                    }
+            _isLoading.value = true
+            userDetailUseCase.invoke(searchQuery)
+                .onSuccess {
+                    _userDetailSuccessEvent.value = it
+                    _isLoading.value = false
                 }
-            }
+                .onFailure {
+                    _userDetailFailureEvent.value = it.message
+                    _isLoading.value = false
+                }
         }
-    }
-
-    fun loadingStateChange(isLoading: Boolean) {
-        _loadingStateFlow.value = isLoading
-    }
-
-    fun retryApiRequest() {
-        dispatchRetry?.invoke()
     }
 }

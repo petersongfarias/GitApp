@@ -13,7 +13,6 @@ import androidx.paging.PagingData
 import br.com.github.databinding.FragmentHomeBinding
 import br.com.github.domain.model.user.BaseUser
 import br.com.github.ui.common.changeVisibility
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,59 +35,39 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObserver()
-        setupSearch()
         setupAdapter()
+        setupObservers()
+        setupSearch()
         homeViewModel.fetchUsers()
     }
 
-    private fun setupObserver() {
+    private fun setupObservers() = with(homeViewModel) {
+        userDetailFailureEvent.observe(viewLifecycleOwner) {
+            showError(errorMessage = it)
+        }
+
+        userListFailureEvent.observe(viewLifecycleOwner) {
+            showError(errorMessage = it)
+        }
+
+        userDetailSuccessEvent.observe(viewLifecycleOwner) {
+            setUserList(PagingData.from(listOf(it)))
+        }
+
+        userListSuccessEvent.observe(viewLifecycleOwner) {
+            setUserList(it as PagingData<BaseUser>)
+        }
+
+        isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+    }
+
+    private fun setUserList(pagingData: PagingData<BaseUser>) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    homeViewModel.loadingStateFlow.collect {
-                        showLoading(it)
-                    }
-                }
-
-                launch {
-                    homeViewModel.errorSharedFlow.collect {
-                        showError(errorMessage = it)
-                        listUserAdapter.submitData(PagingData.empty())
-                    }
-                }
-
-                launch {
-                    homeViewModel.homeStateFlow.collectLatest {
-                        when (it) {
-                            is HomeState.Nothing -> {}
-
-                            is HomeState.Clear -> {
-                                listUserAdapter.submitData(PagingData.empty())
-                            }
-
-                            is HomeState.ShowUserList -> {
-                                showLoading(false)
-                                (it.userList as? PagingData<BaseUser>)?.let { data ->
-                                    listUserAdapter.submitData(data)
-                                }
-                            }
-
-                            is HomeState.ShowUser -> {
-                                listUserAdapter.submitData(PagingData.from(listOf(it.user)))
-                            }
-                        }
-                    }
-                }
-
-                launch {
-//                    homeViewModel.eventSharedFlow.collectLatest {
-//                        when (it) {
-//                            is EventState.MoveDetailActivity -> {
-//                                startDetailActivity(it.user)
-//                            }
-//                        }
-//                    }
+                    listUserAdapter.submitData(pagingData)
                 }
             }
         }

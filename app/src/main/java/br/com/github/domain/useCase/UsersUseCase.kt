@@ -9,6 +9,6 @@ class UsersUseCase(
     private val userDataRepository: UserDataRepository
 ) : UseCasePager<Pager<Int, UserModel>> {
 
-    override suspend fun invoke(): Pager<Int, UserModel> =
+    override suspend fun invoke(): Result<Pager<Int, UserModel>> =
         userDataRepository.fetchUsers()
 }
