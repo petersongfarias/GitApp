@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
+import br.com.github.NavGraphDirections
 import br.com.github.databinding.FragmentHomeBinding
 import br.com.github.domain.model.user.BaseUser
 import br.com.github.ui.common.changeVisibility
@@ -118,13 +120,14 @@ class HomeFragment : Fragment() {
     private fun setupAdapter() {
         with(binding.rvUsers) {
             setHasFixedSize(true)
+            listUserAdapter.addLoadStateListener {
+                viewModel.observeLoadState(it)
+            }
             adapter = listUserAdapter
         }
     }
 
     private fun userItemClicked(user: BaseUser) {
-//        val intent = Intent(this, DetailUserActivity::class.java)
-//        intent.putExtra(DetailUserActivity.EXTRA_USER, user)
-//        startActivity(intent)
+        findNavController().navigate(NavGraphDirections.actionGlobalToUserDetailFragment(user))
     }
 }

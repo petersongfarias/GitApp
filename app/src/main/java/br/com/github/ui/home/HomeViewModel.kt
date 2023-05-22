@@ -1,6 +1,8 @@
 package br.com.github.ui.home
 
 import androidx.lifecycle.*
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import br.com.github.domain.model.user.UserDetailModel
@@ -31,6 +33,14 @@ class HomeViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    fun observeLoadState(loadState: CombinedLoadStates?) {
+        loadState?.let {
+            _isLoading.value = loadState.append is LoadState.Loading ||
+                loadState.prepend is LoadState.Loading ||
+                loadState.refresh is LoadState.Loading
+        }
+    }
+
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         fetchUsers()
@@ -38,16 +48,13 @@ class HomeViewModel(
 
     fun fetchUsers() {
         viewModelScope.launch {
-            _isLoading.value = true
             usersUseCase.invoke(Unit)
                 .onSuccess {
-                    _isLoading.value = false
                     it.flow.cachedIn(viewModelScope).collect {
                         _userListSuccessEvent.value = it
                     }
                 }
                 .onFailure {
-                    _isLoading.value = false
                     _userListFailureEvent.value = it.message
                 }
         }
