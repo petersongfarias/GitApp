@@ -1,9 +1,5 @@
 package br.com.github.domain.base
 
-interface UseCase<T : Any, R : Any> {
-    suspend operator fun invoke(param: T): Result<R>
-}
-
-interface UseCasePager<R : Any> {
-    suspend operator fun invoke(): Result<R>
+interface UseCase<T : Any?, R : Any> {
+    suspend operator fun invoke(param: T?): Result<R>
 }

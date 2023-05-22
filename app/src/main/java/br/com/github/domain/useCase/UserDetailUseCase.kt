@@ -6,8 +6,8 @@ import br.com.github.domain.repository.UserDataRepository
 
 class UserDetailUseCase(
     private val userDataRepository: UserDataRepository
-) : UseCase<String, UserDetailModel> {
+) : UseCase<String?, UserDetailModel> {
 
-    override suspend fun invoke(param: String): Result<UserDetailModel> =
-        userDataRepository.fetchUserDetail(param)
+    override suspend fun invoke(param: String?): Result<UserDetailModel> =
+        userDataRepository.fetchUserDetail(param.orEmpty())
 }
