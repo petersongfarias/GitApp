@@ -18,8 +18,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var userQuery: String
-
     private lateinit var homeBinding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by viewModel()
     private val listUserAdapter: ListUserAdapter by lazy { ListUserAdapter(::userItemClicked) }
@@ -78,13 +76,17 @@ class HomeFragment : Fragment() {
             setOnQueryTextListener(object :
                     SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        userQuery = query.toString()
-                        clearFocus()
-                        homeViewModel.fetchUser(userQuery)
+                        setUserList(PagingData.empty())
+                        homeViewModel.fetchUser(query.toString())
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
+                        val userQuery = query.toString()
+                        if (userQuery.isEmpty()) {
+                            clearFocus()
+                            homeViewModel.fetchUsers()
+                        }
                         return true
                     }
                 })
@@ -107,6 +109,9 @@ class HomeFragment : Fragment() {
             shimmerHome.changeVisibility(false)
             rvUsers.changeVisibility(false)
             vErrorView.show(errorTitle, errorMessage)
+            vErrorView.setRetryClickListener {
+                svUser.setQuery("", true)
+            }
         }
     }
 

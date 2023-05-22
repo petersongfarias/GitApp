@@ -47,8 +47,8 @@ class HomeViewModel(
                     }
                 }
                 .onFailure {
-                    _userListFailureEvent.value = it.message
                     _isLoading.value = false
+                    _userListFailureEvent.value = it.message
                 }
         }
     }
@@ -58,12 +58,12 @@ class HomeViewModel(
             _isLoading.value = true
             userDetailUseCase.invoke(searchQuery)
                 .onSuccess {
-                    _userDetailSuccessEvent.value = it
                     _isLoading.value = false
+                    _userDetailSuccessEvent.value = it
                 }
                 .onFailure {
-                    _userDetailFailureEvent.value = it.message
                     _isLoading.value = false
+                    _userDetailFailureEvent.value = it.message
                 }
         }
     }
