@@ -8,7 +8,18 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="br.com.github.ui.home.HomeFragment"
-        android:label="MarketplacePdfTermsFragment"
+        android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/userDetailFragment"
+        android:name="br.com.github.ui.detail.UserDetailFragment"
+        android:label="UserDetailFragment"
+        tools:layout="@layout/fragment_user_detail">
+
+        <argument
+            android:name="user"
+            app:argType="br.com.github.domain.model.user.BaseUser" />
+    </fragment>
 
 </navigation>
