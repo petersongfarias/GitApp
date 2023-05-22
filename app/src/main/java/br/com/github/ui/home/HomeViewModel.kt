@@ -39,7 +39,7 @@ class HomeViewModel(
     fun fetchUsers() {
         viewModelScope.launch {
             _isLoading.value = true
-            usersUseCase.invoke()
+            usersUseCase.invoke(Unit)
                 .onSuccess {
                     _isLoading.value = false
                     it.flow.cachedIn(viewModelScope).collect {
