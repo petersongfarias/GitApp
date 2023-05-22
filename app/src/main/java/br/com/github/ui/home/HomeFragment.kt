@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
 import androidx.paging.PagingData
 import br.com.github.NavGraphDirections
 import br.com.github.databinding.FragmentHomeBinding
@@ -122,12 +121,7 @@ class HomeFragment : Fragment() {
         with(binding.rvUsers) {
             setHasFixedSize(true)
             listUserAdapter.addLoadStateListener {
-                when {
-                    it.append is LoadState.Loading ||
-                        it.prepend is LoadState.Loading ||
-                        it.refresh is LoadState.Loading -> showLoading(true)
-                    else -> showLoading(false)
-                }
+                viewModel.observeLoadState(it)
             }
             adapter = listUserAdapter
         }
