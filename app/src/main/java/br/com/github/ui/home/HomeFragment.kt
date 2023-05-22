@@ -18,8 +18,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeBinding: FragmentHomeBinding
-    private val homeViewModel: HomeViewModel by viewModel()
+    private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeViewModel by viewModel()
     private val listUserAdapter: ListUserAdapter by lazy { ListUserAdapter(::userItemClicked) }
 
     override fun onCreateView(
@@ -27,8 +27,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        return homeBinding.root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,10 +36,10 @@ class HomeFragment : Fragment() {
         setupAdapter()
         setupObservers()
         setupSearch()
-        homeViewModel.fetchUsers()
+        viewModel.fetchUsers()
     }
 
-    private fun setupObservers() = with(homeViewModel) {
+    private fun setupObservers() = with(viewModel) {
         userDetailFailureEvent.observe(viewLifecycleOwner) {
             showError(errorMessage = it)
         }
@@ -72,12 +72,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupSearch() {
-        homeBinding.svUser.apply {
+        binding.svUser.apply {
             setOnQueryTextListener(object :
                     SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         setUserList(PagingData.empty())
-                        homeViewModel.fetchUser(query.toString())
+                        viewModel.fetchUser(query.toString())
                         return true
                     }
 
@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
                         val userQuery = query.toString()
                         if (userQuery.isEmpty()) {
                             clearFocus()
-                            homeViewModel.fetchUsers()
+                            viewModel.fetchUsers()
                         }
                         return true
                     }
@@ -94,7 +94,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        homeBinding.apply {
+        binding.apply {
             shimmerHome.changeVisibility(isLoading)
             rvUsers.changeVisibility(!isLoading)
             vErrorView.hide()
@@ -105,7 +105,7 @@ class HomeFragment : Fragment() {
         errorTitle: String? = null,
         errorMessage: String? = null
     ) {
-        homeBinding.apply {
+        binding.apply {
             shimmerHome.changeVisibility(false)
             rvUsers.changeVisibility(false)
             vErrorView.show(errorTitle, errorMessage)
@@ -116,7 +116,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        with(homeBinding.rvUsers) {
+        with(binding.rvUsers) {
             setHasFixedSize(true)
             adapter = listUserAdapter
         }

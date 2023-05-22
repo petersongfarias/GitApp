@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import br.com.github.databinding.FragmentUserDetailBinding
 
 class UserDetailFragment : Fragment() {
 
+    private lateinit var binding: FragmentUserDetailBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
