@@ -6,8 +6,8 @@ import br.com.github.domain.repository.UserRepositoriesRepository
 
 class UserRepositoriesUseCase(
     private val repository: UserRepositoriesRepository
-) : UseCase<String?, List<UserRepositoryModel>> {
+) : UseCase<String, List<UserRepositoryModel>> {
 
-    override suspend fun invoke(param: String?): Result<List<UserRepositoryModel>> =
-        repository.fetchRepositories(param.orEmpty())
+    override suspend fun invoke(param: String): Result<List<UserRepositoryModel>> =
+        repository.fetchRepositories(param)
 }

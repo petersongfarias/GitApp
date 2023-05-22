@@ -38,16 +38,13 @@ class HomeViewModel(
 
     fun fetchUsers() {
         viewModelScope.launch {
-            _isLoading.value = true
             usersUseCase.invoke(Unit)
                 .onSuccess {
-                    _isLoading.value = false
                     it.flow.cachedIn(viewModelScope).collect {
                         _userListSuccessEvent.value = it
                     }
                 }
                 .onFailure {
-                    _isLoading.value = false
                     _userListFailureEvent.value = it.message
                 }
         }
