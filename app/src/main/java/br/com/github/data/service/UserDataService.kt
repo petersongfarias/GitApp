@@ -8,7 +8,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserDataService {
-
     @GET("users")
     suspend fun fetchUserList(
         @Query("since") since: Int,

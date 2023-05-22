@@ -6,7 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface UserRepositoriesService {
-
     @GET("users/{userName}/repos")
     suspend fun fetchRepositories(
         @Path("userName")
