@@ -3,22 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/primary_color"
+        android:elevation="2dp"
         android:minHeight="?attr/actionBarSize"
         android:paddingHorizontal="24dp"
         android:paddingVertical="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_app_github"
         app:popupTheme="@style/Theme.Github.PopupOverlay"
         app:title="@string/app_name"
-        app:titleTextAppearance="@style/Theme.Github.Toolbar" />
+        app:titleTextAppearance="@style/Theme.Github.Toolbar"
+        app:titleTextColor="@color/white" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/svUser"
@@ -29,10 +33,10 @@
         android:background="@drawable/bg_search_view"
         android:iconifiedByDefault="false"
         android:inputType="text"
-        android:textSize="14sp"
         android:maxLines="1"
         android:queryBackground="@android:color/transparent"
         android:queryHint="@string/search_hint"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
@@ -65,10 +69,10 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/svUser"
         app:layout_constraintStart_toStartOf="@id/svUser"
         app:layout_constraintTop_toBottomOf="@id/svUser"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:shimmer_auto_start="true">
 
         <ScrollView
