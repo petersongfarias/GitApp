@@ -10,4 +10,5 @@
     <string name="followers">Seguidores</string>
     <string name="following">Seguindo</string>
     <string name="repository">Repositorios</string>
+    <string name="user_detail_title">Detalhes do usuário</string>
 </resources>
