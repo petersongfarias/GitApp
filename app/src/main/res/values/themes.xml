@@ -2,4 +2,14 @@
 <resources>
 
     <style name="Theme.Github" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style
+        name="Theme.Github.PopupOverlay"
+        parent="ThemeOverlay.AppCompat.Light" />
+
+    <style
+        name="Theme.Github.Toolbar"
+        parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>
