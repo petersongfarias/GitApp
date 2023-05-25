@@ -5,8 +5,6 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
 import android.view.View
-import android.view.ViewTreeObserver
-import android.widget.EditText
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.core.graphics.drawable.DrawableCompat
