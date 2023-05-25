@@ -9,6 +9,8 @@ import androidx.navigation.fragment.navArgs
 import br.com.github.R
 import br.com.github.databinding.FragmentUserDetailBinding
 import br.com.github.domain.model.user.UserDetailModel
+import br.com.github.ui.common.customView.hide
+import br.com.github.ui.common.customView.show
 import br.com.github.ui.common.extensions.loadImage
 import br.com.github.ui.common.extensions.observe
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,12 +45,17 @@ class UserDetailFragment : Fragment() {
             fetchUser(it.login)
         }
 
+        userDetailFailureEvent.observe(viewLifecycleOwner) {
+            binding.vErrorView.show(errorMessage = it)
+        }
+
         userDetailSuccessEvent.observe(viewLifecycleOwner) {
             setupDetail(it)
         }
     }
 
     private fun setupDetail(userDetail: UserDetailModel) = with(binding) {
+        vErrorView.hide()
         ivAvatar.loadImage(userDetail.avatarUrl.orEmpty())
         tvName.text = userDetail.name
         tvUsername.text = userDetail.login

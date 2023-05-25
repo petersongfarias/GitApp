@@ -15,6 +15,8 @@ import br.com.github.NavGraphDirections
 import br.com.github.databinding.FragmentHomeBinding
 import br.com.github.domain.model.user.BaseUser
 import br.com.github.ui.common.customView.LoadingStateAdapter
+import br.com.github.ui.common.customView.hide
+import br.com.github.ui.common.customView.show
 import br.com.github.ui.common.extensions.changeVisibility
 import br.com.github.ui.common.extensions.getErrorState
 import br.com.github.ui.common.extensions.hideKeyBoard
@@ -126,9 +128,9 @@ class HomeFragment : Fragment() {
             listUserAdapter.addLoadStateListener {
                 it.getErrorState()?.let { errorState ->
                     viewModel.updateFetchUsersFailure(errorState)
+                } ?: run {
+                    viewModel.updateLoadingState(it.source.refresh is LoadState.Loading)
                 }
-
-                viewModel.updateLoadingState(it.source.refresh is LoadState.Loading)
             }
             adapter = listUserAdapter.withLoadStateHeaderAndFooter(
                 LoadingStateAdapter(),

@@ -25,19 +25,26 @@ class CustomErrorView @JvmOverloads constructor(
         binding.btnRetry.setOnClickListener(clickListener)
     }
 
-    fun show(
+    fun setError(
         errorTitle: String? = null,
         errorMessage: String? = null
     ) {
-        binding.run {
+        with(binding) {
             tvError.text = errorTitle ?: root.context.getString(R.string.default_error_title)
             tvErrorDetail.text =
                 errorMessage ?: root.context.getString(R.string.default_error_message)
-            root.visibility = View.VISIBLE
         }
     }
+}
 
-    fun hide() {
-        binding.root.visibility = View.GONE
-    }
+fun CustomErrorView.show(
+    errorTitle: String? = null,
+    errorMessage: String? = null
+) {
+    setError(errorTitle, errorMessage)
+    this.visibility = View.VISIBLE
+}
+
+fun CustomErrorView.hide() {
+    this.visibility = View.GONE
 }
