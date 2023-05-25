@@ -13,4 +13,5 @@
     <color name="default_error">#FF5A5A</color>
     <color name="primary_color">#8BC34A</color>
     <color name="secondary_color">#6BAA23</color>
+    <color name="transparent_color">#00000000</color>
 </resources>

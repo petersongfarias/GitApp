@@ -1,4 +1,4 @@
-package br.com.github.ui.common
+package br.com.github.ui.common.liveData
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

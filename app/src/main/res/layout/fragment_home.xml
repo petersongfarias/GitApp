@@ -31,7 +31,6 @@
         android:layout_margin="16dp"
         android:autofillHints="username"
         android:background="@drawable/bg_search_view"
-        android:iconifiedByDefault="false"
         android:inputType="text"
         android:maxLines="1"
         android:queryBackground="@android:color/transparent"
@@ -54,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/svUser"
         tools:listitem="@layout/item_user" />
 
-    <br.com.github.ui.common.CustomErrorView
+    <br.com.github.ui.common.customView.CustomErrorView
         android:id="@+id/vErrorView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -63,45 +62,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/svUser" />
 
-    <com.facebook.shimmer.ShimmerFrameLayout
+    <include
         android:id="@+id/shimmerHome"
+        layout="@layout/include_shimmer_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/svUser"
-        app:layout_constraintStart_toStartOf="@id/svUser"
-        app:layout_constraintTop_toBottomOf="@id/svUser"
-        app:shimmer_auto_start="true">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svUser" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include layout="@layout/item_user_placeholder" />
-
-                <include layout="@layout/item_user_placeholder" />
-
-                <include layout="@layout/item_user_placeholder" />
-
-                <include layout="@layout/item_user_placeholder" />
-
-                <include layout="@layout/item_user_placeholder" />
-
-                <include layout="@layout/item_user_placeholder" />
-
-                <include layout="@layout/item_user_placeholder" />
-
-            </LinearLayout>
-
-        </ScrollView>
-
-    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

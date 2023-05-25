@@ -1,16 +1,16 @@
 package br.com.github.ui.home
 
 import androidx.lifecycle.*
-import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import br.com.github.data.base.getErrorMessage
 import br.com.github.domain.model.user.UserDetailModel
 import br.com.github.domain.model.user.UserModel
 import br.com.github.domain.useCase.UserDetailUseCase
 import br.com.github.domain.useCase.UsersUseCase
-import br.com.github.ui.common.LiveDataSingleEvent
-import br.com.github.ui.common.toLiveData
+import br.com.github.ui.common.liveData.LiveDataSingleEvent
+import br.com.github.ui.common.extensions.toLiveData
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -31,14 +31,14 @@ class HomeViewModel(
     val userDetailFailureEvent = _userDetailFailureEvent.toLiveData()
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    val isLoading: LiveData<Boolean> = _isLoading.toLiveData()
 
-    fun observeLoadState(loadState: CombinedLoadStates?) {
-        loadState?.let {
-            _isLoading.value = loadState.append is LoadState.Loading ||
-                loadState.prepend is LoadState.Loading ||
-                loadState.refresh is LoadState.Loading
-        }
+    fun updateLoadingState(isLoading: Boolean) {
+        _isLoading.value = isLoading
+    }
+
+    fun updateFetchUsersFailure(error: LoadState.Error) {
+        _userListFailureEvent.value = error.getErrorMessage()
     }
 
     override fun onCreate(owner: LifecycleOwner) {
@@ -48,15 +48,9 @@ class HomeViewModel(
 
     fun fetchUsers() {
         viewModelScope.launch {
-            usersUseCase.invoke(Unit)
-                .onSuccess {
-                    it.flow.cachedIn(viewModelScope).collect {
-                        _userListSuccessEvent.value = it
-                    }
-                }
-                .onFailure {
-                    _userListFailureEvent.value = it.message
-                }
+            usersUseCase.invoke().flow.cachedIn(viewModelScope).collect {
+                _userListSuccessEvent.value = it
+            }
         }
     }
 

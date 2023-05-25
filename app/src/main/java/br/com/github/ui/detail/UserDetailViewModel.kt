@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import br.com.github.domain.model.user.BaseUser
 import br.com.github.domain.model.user.UserDetailModel
 import br.com.github.domain.useCase.UserDetailUseCase
-import br.com.github.ui.common.LiveDataSingleEvent
-import br.com.github.ui.common.toLiveData
+import br.com.github.ui.common.liveData.LiveDataSingleEvent
+import br.com.github.ui.common.extensions.toLiveData
 import kotlinx.coroutines.launch
 
 class UserDetailViewModel(

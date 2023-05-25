@@ -10,11 +10,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import br.com.github.NavGraphDirections
 import br.com.github.databinding.FragmentHomeBinding
 import br.com.github.domain.model.user.BaseUser
-import br.com.github.ui.common.changeVisibility
+import br.com.github.ui.common.customView.LoadingStateAdapter
+import br.com.github.ui.common.extensions.changeVisibility
+import br.com.github.ui.common.extensions.getErrorState
+import br.com.github.ui.common.extensions.hideKeyBoard
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +35,11 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.hideKeyBoard()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,12 +101,13 @@ class HomeFragment : Fragment() {
                         return true
                     }
                 })
+            clearFocus()
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.apply {
-            shimmerHome.changeVisibility(isLoading)
+            shimmerHome.shimmer.changeVisibility(isLoading)
             rvUsers.changeVisibility(!isLoading)
             vErrorView.hide()
         }
@@ -108,7 +118,7 @@ class HomeFragment : Fragment() {
         errorMessage: String? = null
     ) {
         binding.apply {
-            shimmerHome.changeVisibility(false)
+            shimmerHome.shimmer.changeVisibility(false)
             rvUsers.changeVisibility(false)
             vErrorView.show(errorTitle, errorMessage)
             vErrorView.setRetryClickListener {
@@ -121,9 +131,16 @@ class HomeFragment : Fragment() {
         with(binding.rvUsers) {
             setHasFixedSize(true)
             listUserAdapter.addLoadStateListener {
-                viewModel.observeLoadState(it)
+                it.getErrorState()?.let { errorState ->
+                    viewModel.updateFetchUsersFailure(errorState)
+                }
+
+                viewModel.updateLoadingState(it.source.refresh is LoadState.Loading)
             }
-            adapter = listUserAdapter
+            adapter = listUserAdapter.withLoadStateHeaderAndFooter(
+                LoadingStateAdapter(),
+                LoadingStateAdapter()
+            )
         }
     }
 

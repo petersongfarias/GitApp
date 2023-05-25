@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.github.databinding.ItemUserBinding
 import br.com.github.domain.model.user.BaseUser
-import br.com.github.ui.common.loadUserImage
+import br.com.github.ui.common.extensions.loadUserImage
 
 class ListUserAdapter(private val onItemClick: (BaseUser) -> Unit) :
     PagingDataAdapter<BaseUser, ListUserAdapter.ListViewHolder>(DIFF_CALLBACK) {

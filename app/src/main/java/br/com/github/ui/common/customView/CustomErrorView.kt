@@ -1,4 +1,4 @@
-package br.com.github.ui.common
+package br.com.github.ui.common.customView
 
 import android.content.Context
 import android.util.AttributeSet

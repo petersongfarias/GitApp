@@ -6,7 +6,7 @@ import br.com.github.domain.model.user.UserModel
 
 interface UserDataRepository {
 
-    suspend fun fetchUsers(): Result<Pager<Int, UserModel>>
+    suspend fun fetchUsers(): Pager<Int, UserModel>
 
     suspend fun fetchUserDetail(
         userName: String

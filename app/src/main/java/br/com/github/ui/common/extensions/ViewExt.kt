@@ -1,4 +1,4 @@
-package br.com.github.ui.common
+package br.com.github.ui.common.extensions
 
 import android.view.View
 import android.widget.ImageView
