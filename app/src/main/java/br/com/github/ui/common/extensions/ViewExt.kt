@@ -14,17 +14,48 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestOptions
 import kotlin.math.roundToInt
 
-fun ImageView.loadUserImage(url: String) {
+@Suppress("LongParameterList")
+fun getRequestOptions(
+    placeholderRes: Int,
+    errorRes: Int,
+    transform: RequestOptions? = null,
+    width: Int? = null,
+    height: Int? = null,
+    isCircleCrop: Boolean = false
+) = RequestOptions()
+    .circleCrop()
+    .error(errorRes)
+    .placeholder(placeholderRes)
+    .apply {
+        if (isCircleCrop) circleCrop()
+        width?.let { override(it.dpToPx()) }
+        height?.let { override(it.dpToPx()) }
+        transform?.let { apply(it) }
+    }
+
+@Suppress("LongParameterList")
+fun ImageView.loadImage(
+    url: String,
+    placeholderRes: Int = R.drawable.ic_avata_placeholder_default,
+    errorRes: Int = R.drawable.icon_error,
+    transform: RequestOptions? = null,
+    width: Int? = null,
+    height: Int? = null,
+    isCircleCrop: Boolean? = null
+) {
     try {
         Glide.with(this.context)
             .load(url)
             .apply(
-                RequestOptions().override(100, 100)
-                    .circleCrop()
-                    .placeholder(R.drawable.ic_avata_placeholder_default)
-                    .error(R.drawable.icon_error)
-            )
-            .into(this)
+                getRequestOptions(
+                    transform = transform,
+                    width = width,
+                    height = height,
+                    placeholderRes = placeholderRes,
+                    errorRes = errorRes,
+                    isCircleCrop = isCircleCrop ?: false
+                )
+            ).into(this)
     } catch (e: GlideException) {
         e.logRootCauses("GlideException")
     }

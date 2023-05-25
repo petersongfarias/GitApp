@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel()
-    private val listUserAdapter: ListUserAdapter by lazy { ListUserAdapter(::userItemClicked) }
+    private val listUserAdapter: ListUserAdapter by lazy { ListUserAdapter(::navigateToDetail) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +60,8 @@ class HomeFragment : Fragment() {
         }
 
         userDetailSuccessEvent.observe(viewLifecycleOwner) {
-            setUserList(PagingData.from(listOf(it)))
+            navigateToDetail(it)
+            clearSearch()
         }
 
         userListSuccessEvent.observe(viewLifecycleOwner) {
@@ -114,7 +115,7 @@ class HomeFragment : Fragment() {
             rvUsers.changeVisibility(false)
             vErrorView.show(errorTitle, errorMessage)
             vErrorView.setRetryClickListener {
-                svUser.clear()
+                clearSearch()
             }
         }
     }
@@ -136,7 +137,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun userItemClicked(user: BaseUser) {
+    private fun clearSearch() {
+        binding.svUser.clear()
+    }
+
+    private fun navigateToDetail(user: BaseUser) {
         findNavController().navigate(NavGraphDirections.actionGlobalToUserDetailFragment(user))
     }
 }

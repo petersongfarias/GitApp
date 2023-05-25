@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="userAvatarItemListWidth">100dp</dimen>
+    <dimen name="userAvatarItemListHeight">100dp</dimen>
+
+    <dimen name="userAvatarDetailWidth">200dp</dimen>
+    <dimen name="userAvatarDetailHeight">200dp</dimen>
+</resources>
