@@ -59,6 +59,11 @@ class UserDetailFragment : Fragment() {
         ivAvatar.loadImage(userDetail.avatarUrl.orEmpty())
         tvName.text = userDetail.name
         tvUsername.text = userDetail.login
+        tvLocation.text = userDetail.location
+        tvFollowers.text =
+            String.format(getString(R.string.value_with_followers, userDetail.followers ?: 0))
+        tvFollowing.text =
+            String.format(getString(R.string.value_with_following, userDetail.following ?: 0))
     }
 
     private fun setupToolBar() {

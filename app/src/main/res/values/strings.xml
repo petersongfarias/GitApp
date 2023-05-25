@@ -3,12 +3,11 @@
     <string name="default_error_title">Ocorreu um erro!</string>
     <string name="default_error_message">No momento não conseguimos carregar as informações, por favor tente mais tarde!</string>
     <string name="value_with_starts">%d estrelas</string>
-    <string name="value_with_watching">%d observando</string>
+    <string name="value_with_followers">%d seguidores</string>
+    <string name="value_with_following">%d seguindo</string>
     <string name="default_retry">Tentar novamente</string>
     <string name="value_with_forks">%d forks</string>
     <string name="search_hint">Pesquisar</string>
-    <string name="followers">Seguidores</string>
-    <string name="following">Seguindo</string>
     <string name="repository">Repositorios</string>
     <string name="user_detail_title">Detalhes do usuário</string>
 </resources>
