@@ -113,7 +113,6 @@ class SearchInputView : FrameLayout {
             continuousInputChangedListener?.invoke("")
             debouncedInputChangedListener?.invoke("")
         }
-
         return true
     }
 

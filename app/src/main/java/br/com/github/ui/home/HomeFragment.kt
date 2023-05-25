@@ -140,7 +140,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun clearSearch() {
-        binding.svUser.clear()
+        binding.svUser.apply {
+            clearFocus()
+            clear()
+        }
     }
 
     private fun navigateToDetail(user: BaseUser) {
