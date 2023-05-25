@@ -52,7 +52,7 @@ class SearchInputView : FrameLayout {
     }
 
     private fun init() {
-        binding.root.setOnClickListener { binding.inputField.focusAndShowKeyboard() }
+        binding.root.setOnClickListener { binding.inputField.requestFocus() }
 
         binding.inputField.doAfterTextChanged { newText ->
             updateClearButtonVisibility(newText)

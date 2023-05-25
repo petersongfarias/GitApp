@@ -45,25 +45,6 @@ internal fun Drawable.applyTint(@ColorInt tintColor: Int?): Drawable {
     return tintedDrawable
 }
 
-fun EditText.focusAndShowKeyboard() {
-    requestFocus()
-
-    if (hasWindowFocus()) {
-        showSoftInputOnFocus = true
-    } else {
-        viewTreeObserver.addOnWindowFocusChangeListener(
-            object : ViewTreeObserver.OnWindowFocusChangeListener {
-                override fun onWindowFocusChanged(hasFocus: Boolean) {
-                    if (hasFocus) {
-                        this@focusAndShowKeyboard.showSoftInputOnFocus = true
-                        viewTreeObserver.removeOnWindowFocusChangeListener(this)
-                    }
-                }
-            }
-        )
-    }
-}
-
 internal fun Int.dpToPx(): Int = dpToPxPrecise().roundToInt()
 
 internal fun Int.dpToPxPrecise(): Float = (this * displayMetrics().density)
