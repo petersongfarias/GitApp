@@ -10,7 +10,6 @@ import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import br.com.github.databinding.LayoutSearchInputViewBinding
-import br.com.github.ui.common.extensions.focusAndShowKeyboard
 
 class SearchInputView : FrameLayout {
 
