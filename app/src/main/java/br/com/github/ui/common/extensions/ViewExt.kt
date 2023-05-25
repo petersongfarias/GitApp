@@ -1,11 +1,20 @@
 package br.com.github.ui.common.extensions
 
+import android.content.res.Resources
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.ViewTreeObserver
+import android.widget.EditText
 import android.widget.ImageView
+import androidx.annotation.ColorInt
+import androidx.core.graphics.drawable.DrawableCompat
 import br.com.github.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestOptions
+import kotlin.math.roundToInt
 
 fun ImageView.loadUserImage(url: String) {
     try {
@@ -26,3 +35,37 @@ fun ImageView.loadUserImage(url: String) {
 fun View.changeVisibility(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
 }
+
+internal fun Drawable.applyTint(@ColorInt tintColor: Int?): Drawable {
+    if (tintColor == null) return this
+
+    val tintedDrawable = DrawableCompat.wrap(this).mutate()
+    DrawableCompat.setTint(tintedDrawable, tintColor)
+    DrawableCompat.setTintMode(tintedDrawable, PorterDuff.Mode.SRC_IN)
+    return tintedDrawable
+}
+
+fun EditText.focusAndShowKeyboard() {
+    requestFocus()
+
+    if (hasWindowFocus()) {
+        showSoftInputOnFocus = true
+    } else {
+        viewTreeObserver.addOnWindowFocusChangeListener(
+            object : ViewTreeObserver.OnWindowFocusChangeListener {
+                override fun onWindowFocusChanged(hasFocus: Boolean) {
+                    if (hasFocus) {
+                        this@focusAndShowKeyboard.showSoftInputOnFocus = true
+                        viewTreeObserver.removeOnWindowFocusChangeListener(this)
+                    }
+                }
+            }
+        )
+    }
+}
+
+internal fun Int.dpToPx(): Int = dpToPxPrecise().roundToInt()
+
+internal fun Int.dpToPxPrecise(): Float = (this * displayMetrics().density)
+
+internal fun displayMetrics(): DisplayMetrics = Resources.getSystem().displayMetrics

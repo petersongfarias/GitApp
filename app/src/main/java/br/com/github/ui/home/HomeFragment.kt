@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -84,24 +83,16 @@ class HomeFragment : Fragment() {
 
     private fun setupSearch() {
         binding.svUser.apply {
-            setOnQueryTextListener(object :
-                    SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean {
-                        setUserList(PagingData.empty())
-                        viewModel.fetchUser(query.toString())
-                        return true
-                    }
+            searchStartedListener = {
+                setUserList(PagingData.empty())
+                viewModel.fetchUser(it)
+            }
 
-                    override fun onQueryTextChange(newText: String?): Boolean {
-                        val userQuery = query.toString()
-                        if (userQuery.isEmpty()) {
-                            clearFocus()
-                            viewModel.fetchUsers()
-                        }
-                        return true
-                    }
-                })
-            clearFocus()
+            continuousInputChangedListener = {
+                if (it.isEmpty()) {
+                    viewModel.fetchUsers()
+                }
+            }
         }
     }
 
@@ -122,7 +113,7 @@ class HomeFragment : Fragment() {
             rvUsers.changeVisibility(false)
             vErrorView.show(errorTitle, errorMessage)
             vErrorView.setRetryClickListener {
-                svUser.setQuery("", true)
+                svUser.clear()
             }
         }
     }
