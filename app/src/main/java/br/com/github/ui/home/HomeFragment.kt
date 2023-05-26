@@ -117,6 +117,7 @@ class HomeFragment : Fragment() {
             rvUsers.changeVisibility(false)
             vStateView.show(errorTitle, errorMessage)
             vStateView.setRetryClickListener {
+                viewModel.fetchUsers()
                 clearSearch()
             }
         }
