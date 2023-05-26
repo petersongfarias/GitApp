@@ -13,7 +13,7 @@ inline fun <T, R> T.resultOf(block: T.() -> R): Result<R> {
     } catch (t: TimeoutCancellationException) {
         Result.failure(t)
     } catch (c: CancellationException) {
-        throw c
+        Result.failure(c)
     } catch (e: Exception) {
         Result.failure(e)
     }
