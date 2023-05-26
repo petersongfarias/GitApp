@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -24,7 +25,7 @@
         app:titleTextColor="@color/white" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_avatar"
+        android:id="@+id/ivAvatar"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginTop="20dp"
@@ -46,7 +47,7 @@
         app:layout_constraintBottom_toTopOf="@id/tvUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
         tools:text="Peterson Farias" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -70,13 +71,13 @@
         android:gravity="center"
         android:textColor="@color/grey_medium"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@id/tv_following"
+        app:layout_constraintEnd_toStartOf="@id/tvFollowing"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_following"
+        app:layout_constraintTop_toTopOf="@id/tvFollowing"
         tools:text="Followers" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_following"
+        android:id="@+id/tvFollowing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -96,12 +97,12 @@
         android:textColor="@color/grey_medium"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_following"
-        app:layout_constraintTop_toTopOf="@id/tv_following"
+        app:layout_constraintStart_toEndOf="@id/tvFollowing"
+        app:layout_constraintTop_toTopOf="@id/tvFollowing"
         tools:text="Repository" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_location"
+        android:id="@+id/tvLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -113,12 +114,62 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_following"
+        app:layout_constraintTop_toBottomOf="@id/tvFollowing"
         tools:text="Brasil" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRepositories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:drawablePadding="8dp"
+        android:textSize="20sp"
+        android:textColor="@color/grey_dark"
+        android:text="@string/user_detail_repositories"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLocation" />
 
-    <br.com.github.ui.common.customView.CustomErrorView
-        android:id="@+id/vErrorView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUsers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRepositories"
+        tools:listitem="@layout/item_repository" />
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:indeterminateTint="@color/secondary_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRepositories" />
+
+    <br.com.github.ui.common.customView.ScreenStateView
+        android:id="@+id/vRepositoriesStateView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRepositories" />
+
+    <br.com.github.ui.common.customView.ScreenStateView
+        android:id="@+id/vUserDetailStateView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"

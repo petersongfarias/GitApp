@@ -17,6 +17,7 @@ val viewModelModule = module {
     viewModel { (user: BaseUser) ->
         UserDetailViewModel(
             user = user,
+            userRepositoriesUseCase = get(),
             userDetailUseCase = get()
         )
     }

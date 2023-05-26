@@ -1,10 +1,10 @@
 package br.com.github.data.base
 
+import android.util.Log
 import androidx.paging.LoadState
 import kotlinx.coroutines.TimeoutCancellationException
 import retrofit2.HttpException
 import retrofit2.Response
-import timber.log.Timber
 import kotlin.coroutines.cancellation.CancellationException
 
 inline fun <T, R> T.resultOf(block: T.() -> R): Result<R> {
@@ -22,7 +22,7 @@ inline fun <T, R> T.resultOf(block: T.() -> R): Result<R> {
 fun <T> Response<T>.logException(
     tag: String
 ): Response<T> {
-    Timber.tag(tag).e(exceptionOrNull() ?: error(DEFAULT_ERROR_MESSAGE))
+    Log.e(tag, exceptionOrNull()?.message ?: DEFAULT_ERROR_MESSAGE)
     return this
 }
 
@@ -45,8 +45,7 @@ fun LoadState.Error?.getErrorMessage(): String {
         return DEFAULT_ERROR_MESSAGE
     }
     return when (val throwable = error) {
-        is HttpException ->
-            throwable.response()?.message() ?: DEFAULT_ERROR_MESSAGE
+        is HttpException -> throwable.response()?.message() ?: DEFAULT_ERROR_MESSAGE
 
         else -> throwable.message ?: DEFAULT_ERROR_MESSAGE
     }

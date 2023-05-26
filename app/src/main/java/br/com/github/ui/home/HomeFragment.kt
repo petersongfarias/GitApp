@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
         binding.apply {
             shimmerHome.shimmer.changeVisibility(isLoading)
             rvUsers.changeVisibility(!isLoading)
-            vErrorView.hide()
+            vStateView.hide()
         }
     }
 
@@ -115,8 +115,8 @@ class HomeFragment : Fragment() {
         binding.apply {
             shimmerHome.shimmer.changeVisibility(false)
             rvUsers.changeVisibility(false)
-            vErrorView.show(errorTitle, errorMessage)
-            vErrorView.setRetryClickListener {
+            vStateView.show(errorTitle, errorMessage)
+            vStateView.setRetryClickListener {
                 clearSearch()
             }
         }

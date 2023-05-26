@@ -1,155 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    android:layout_marginVertical="4dp"
+    android:foreground="?android:selectableItemBackgroundBorderless"
+    app:cardCornerRadius="4dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:elevation="4dp"
-        android:foreground="?android:selectableItemBackgroundBorderless"
-        app:cardCornerRadius="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/bg_user_item"
+        android:padding="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRepoName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:textColor="@color/grey_dark"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/tvLicense"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Repositorio" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_repo_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/grey_dark"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/iv_license"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Repositorio" />
+        <TextView
+            android:id="@+id/tvLicense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:lines="1"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvRepoName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvRepoName"
+            tools:text="Apache License 2.0" />
 
-            <ImageView
-                android:id="@+id/iv_license"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/icon_license"
-                app:layout_constraintBottom_toBottomOf="@id/tv_license"
-                app:layout_constraintEnd_toStartOf="@id/tv_license"
-                app:layout_constraintStart_toEndOf="@id/tv_repo_name" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivStar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/icon_star"
+            app:layout_constraintEnd_toStartOf="@id/tvStarCount"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRepoName" />
 
-            <TextView
-                android:id="@+id/tv_license"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif"
-                android:text="@{repository.license.name}"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_repo_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Apache License 2.0" />
+        <TextView
+            android:id="@+id/tvStarCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivStar"
+            app:layout_constraintEnd_toStartOf="@id/ivWatch"
+            app:layout_constraintStart_toEndOf="@id/ivStar"
+            app:layout_constraintTop_toTopOf="@id/ivStar"
+            tools:text="@string/value_with_starts" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/icon_star"
-                app:layout_constraintEnd_toStartOf="@id/tv_star_cnt"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_repo_name" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivWatch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/icon_watch"
+            app:layout_constraintBottom_toBottomOf="@id/ivStar"
+            app:layout_constraintEnd_toStartOf="@id/tvWatchCount"
+            app:layout_constraintStart_toEndOf="@id/tvStarCount"
+            app:layout_constraintTop_toTopOf="@id/ivStar" />
 
-            <TextView
-                android:id="@+id/tv_star_cnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_star"
-                app:layout_constraintEnd_toStartOf="@id/iv_watch"
-                app:layout_constraintStart_toEndOf="@id/iv_star"
-                app:layout_constraintTop_toTopOf="@id/iv_star"
-                tools:text="@string/value_with_starts" />
+        <TextView
+            android:id="@+id/tvWatchCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivWatch"
+            app:layout_constraintEnd_toStartOf="@id/ivFork"
+            app:layout_constraintStart_toEndOf="@id/ivWatch"
+            app:layout_constraintTop_toTopOf="@id/ivWatch"
+            tools:text="@string/value_with_following" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_watch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:src="@drawable/icon_watch"
-                app:layout_constraintBottom_toBottomOf="@id/iv_star"
-                app:layout_constraintEnd_toStartOf="@id/tv_watch_cnt"
-                app:layout_constraintStart_toEndOf="@id/tv_star_cnt"
-                app:layout_constraintTop_toTopOf="@id/iv_star" />
+        <ImageView
+            android:id="@+id/ivFork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/icon_fork"
+            app:layout_constraintBottom_toBottomOf="@id/ivStar"
+            app:layout_constraintEnd_toStartOf="@id/tvForkCount"
+            app:layout_constraintStart_toEndOf="@id/tvWatchCount"
+            app:layout_constraintTop_toTopOf="@id/ivStar" />
 
-            <TextView
-                android:id="@+id/tv_watch_cnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_watch"
-                app:layout_constraintEnd_toStartOf="@id/iv_fork"
-                app:layout_constraintStart_toEndOf="@id/iv_watch"
-                app:layout_constraintTop_toTopOf="@id/iv_watch"
-                tools:text="@string/value_with_watching" />
+        <TextView
+            android:id="@+id/tvForkCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivFork"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivFork"
+            app:layout_constraintTop_toTopOf="@id/ivFork"
+            tools:text="@string/value_with_forks" />
 
-            <ImageView
-                android:id="@+id/iv_fork"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:src="@drawable/icon_fork"
-                app:layout_constraintBottom_toBottomOf="@id/iv_star"
-                app:layout_constraintEnd_toStartOf="@id/tv_fork_cnt"
-                app:layout_constraintStart_toEndOf="@id/tv_watch_cnt"
-                app:layout_constraintTop_toTopOf="@id/iv_star" />
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:text="@{repository.description}"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvRepoName"
+            app:layout_constraintTop_toBottomOf="@id/ivStar" />
 
-            <TextView
-                android:id="@+id/tv_fork_cnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_fork"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_fork"
-                app:layout_constraintTop_toTopOf="@id/iv_fork"
-                tools:text="@string/value_with_forks" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/tv_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif"
-                android:text="@{repository.description}"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tv_repo_name"
-                app:layout_constraintTop_toBottomOf="@id/iv_star" />
-
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/group_license"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="iv_license, tv_license" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-</FrameLayout>

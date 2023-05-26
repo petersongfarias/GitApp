@@ -45,8 +45,8 @@
         app:layout_constraintTop_toBottomOf="@id/svUser"
         tools:listitem="@layout/item_user" />
 
-    <br.com.github.ui.common.customView.CustomErrorView
-        android:id="@+id/vErrorView"
+    <br.com.github.ui.common.customView.ScreenStateView
+        android:id="@+id/vStateView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"

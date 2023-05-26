@@ -6,15 +6,15 @@ import com.google.gson.annotations.SerializedName
 
 data class LicenseResponse(
     @SerializedName("key")
-    val key: String,
+    val key: String?,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("spdx_id")
-    val spdxId: String,
+    val spdxId: String?,
     @SerializedName("url")
-    val url: String,
+    val url: String?,
     @SerializedName("node_id")
-    val nodeId: String
+    val nodeId: String?
 ) : Mapper<LicenseModel> {
     override fun mapTo() = LicenseModel(
         key = key,

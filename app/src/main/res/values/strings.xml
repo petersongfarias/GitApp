@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Github</string>
     <string name="default_error_title">Ocorreu um erro!</string>
+    <string name="default_empty_title">Informação não encontrada!</string>
+    <string name="default_empty_message">No momento não encotramos nenhum item, por favor tente novamente mais tarde!</string>
+
     <string name="default_error_message">No momento não conseguimos carregar as informações, por favor tente mais tarde!</string>
     <string name="value_with_starts">%d estrelas</string>
     <string name="value_with_followers">%d seguidores</string>
@@ -10,4 +13,8 @@
     <string name="search_hint">Pesquisar</string>
     <string name="repository">Repositorios</string>
     <string name="user_detail_title">Detalhes do usuário</string>
+    <string name="user_detail_repositories">Repositórios</string>
+
+    <string name="animation_empty">empty_response.json</string>>
+    <string name="animation_error">error_response.json</string>>
 </resources>

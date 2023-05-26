@@ -15,29 +15,29 @@ data class UserRepositoryResponse(
     @SerializedName("owner")
     val user: UserResponse,
     @SerializedName("html_url")
-    val htmlUrl: String,
+    val htmlUrl: String?,
     @SerializedName("description")
-    val description: String,
+    val description: String?,
     @SerializedName("created_at")
-    val createdAt: String,
+    val createdAt: String?,
     @SerializedName("updated_at")
-    val updatedAt: String,
+    val updatedAt: String?,
     @SerializedName("pushed_at")
-    val pushedAt: String,
+    val pushedAt: String?,
     @SerializedName("stargazers_count")
-    val stargazersCount: Int,
+    val stargazersCount: Int?,
     @SerializedName("watchers_count")
-    val watchersCount: Int,
+    val watchersCount: Int?,
     @SerializedName("forks_count")
-    val forksCount: Int,
+    val forksCount: Int?,
     @SerializedName("language")
-    val language: String,
+    val language: String?,
     @SerializedName("license")
     val license: LicenseResponse?,
     @SerializedName("topics")
-    val topics: List<Any>,
+    val topics: List<Any>?,
     @SerializedName("visibility")
-    val visibility: String
+    val visibility: String?
 ) : Mapper<UserRepositoryModel> {
     override fun mapTo() = UserRepositoryModel(
         id = id,
@@ -49,9 +49,9 @@ data class UserRepositoryResponse(
         createdAt = createdAt,
         updatedAt = updatedAt,
         pushedAt = pushedAt,
-        stargazersCount = stargazersCount,
-        watchersCount = watchersCount,
-        forksCount = forksCount,
+        stargazersCount = stargazersCount ?: 0,
+        watchersCount = watchersCount ?: 0,
+        forksCount = forksCount ?: 0,
         language = language,
         license = license?.mapTo(),
         topics = topics,

@@ -11,13 +11,14 @@ import br.com.github.databinding.FragmentUserDetailBinding
 import br.com.github.domain.model.user.UserDetailModel
 import br.com.github.ui.common.customView.hide
 import br.com.github.ui.common.customView.show
+import br.com.github.ui.common.extensions.changeVisibility
 import br.com.github.ui.common.extensions.loadImage
-import br.com.github.ui.common.extensions.observe
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class UserDetailFragment : Fragment() {
 
+    private val listRepositoryAdapter: ListRepositoryAdapter by lazy { ListRepositoryAdapter() }
     private val args: UserDetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentUserDetailBinding
     private val toolbar by lazy { binding.toolbar }
@@ -38,6 +39,7 @@ class UserDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         setupToolBar()
+        setupAdapter()
     }
 
     private fun setupObservers() = with(viewModel) {
@@ -45,17 +47,43 @@ class UserDetailFragment : Fragment() {
             fetchUser(it.login)
         }
 
+        isRepositoriesLoading.observe(viewLifecycleOwner) {
+            binding.vUserDetailStateView.hide()
+            binding.pbLoading.changeVisibility(it)
+        }
+
+        userRepositoriesEmptyEvent.observe(viewLifecycleOwner) {
+            setRepositoriesStateView(
+                title = getString(R.string.default_error_title),
+                message = getString(R.string.default_empty_message),
+                animationName = getString(R.string.animation_empty)
+            )
+        }
+
+        userRepositoriesFailureEvent.observe(viewLifecycleOwner) {
+            setRepositoriesStateView(
+                title = getString(R.string.default_error_title),
+                message = it,
+                animationName = getString(R.string.animation_error)
+            )
+        }
+
+        userRepositoriesSuccessEvent.observe(viewLifecycleOwner) {
+            listRepositoryAdapter.submitList(it)
+        }
+
         userDetailFailureEvent.observe(viewLifecycleOwner) {
-            binding.vErrorView.show(errorMessage = it)
+            binding.vUserDetailStateView.show(errorMessage = it)
         }
 
         userDetailSuccessEvent.observe(viewLifecycleOwner) {
+            viewModel.fetchUserRepositories(it.login)
             setupDetail(it)
         }
     }
 
     private fun setupDetail(userDetail: UserDetailModel) = with(binding) {
-        vErrorView.hide()
+        vUserDetailStateView.hide()
         ivAvatar.loadImage(userDetail.avatarUrl.orEmpty())
         tvName.text = userDetail.name
         tvUsername.text = userDetail.login
@@ -71,5 +99,24 @@ class UserDetailFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
+    }
+
+    private fun setupAdapter() {
+        with(binding.rvUsers) {
+            setHasFixedSize(true)
+            adapter = listRepositoryAdapter
+        }
+    }
+
+    private fun setRepositoriesStateView(
+        title: String? = null,
+        message: String? = null,
+        animationName: String? = null
+    ) {
+        binding.vUserDetailStateView.setState(
+            title,
+            message,
+            animationName
+        )
     }
 }
