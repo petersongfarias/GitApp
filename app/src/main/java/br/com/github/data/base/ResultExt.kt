@@ -22,7 +22,9 @@ inline fun <T, R> T.resultOf(block: T.() -> R): Result<R> {
 fun <T> Response<T>.logException(
     tag: String
 ): Response<T> {
-    Log.e(tag, exceptionOrNull()?.message ?: DEFAULT_ERROR_MESSAGE)
+    if (isSuccessful.not()) {
+        Log.e(tag, exceptionOrNull()?.message ?: DEFAULT_ERROR_MESSAGE)
+    }
     return this
 }
 
